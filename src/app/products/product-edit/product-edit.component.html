@@ -98,8 +98,11 @@
       </div>
     </form> -->
   <div class="wizard">
-    <a class="nav-item" [routerLink]="['info']">Basic Information</a>
-    <a class="nav-item" [routerLink]="['tags']">Search Tags</a>
+    <a class="nav-item" [routerLink]="['info']" routerLinkActive="active">Basic Information 
+      <span [ngClass]="{'fa fa-exclamation': !isValid('info')}"></span></a>
+    <a class="nav-item" [routerLink]="['tags']" routerLinkActive="active">Search Tags
+      <span [ngClass]="{'fa fa-exclamation': !isValid('tags')}"></span>
+    </a>
   </div>
   <router-outlet></router-outlet>
   <div class="form-group row mb-2">
@@ -107,7 +110,7 @@
       <button class="btn btn-primary mr-3"
               style="width:80px"
               type="button"
-              [disabled]="!isValid()"
+              [disabled] = "isValid()"
               (click)="saveProduct()"
               [routerLink]="['/products']"
               >
