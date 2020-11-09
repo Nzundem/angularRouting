@@ -9,15 +9,16 @@ import {ProductEditTagsComponent} from './product-edit/product-edit-tags.compone
 
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { AuthGuard} from '../user/auth.guard'
+// import { AuthGuard} from '../user/auth.guard';
+import { ProductEditGuard} from './product-edit/product-edit.guard';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild([
-      {path: 'products',
-      canActivate: [AuthGuard],
-      children: [
+      // {path: 'products',
+      // canActivate: [AuthGuard],  its not being implemented as lazy loading
+      // children: [
         {
           path: '', component: ProductListComponent
         },
@@ -25,7 +26,9 @@ import { AuthGuard} from '../user/auth.guard'
           resolvedData: ProductResolver
         }
       },
-        {path: ':id/edit', component: ProductEditComponent, resolve: {
+        {path: ':id/edit', component: ProductEditComponent,
+        canDeactivate: [ProductEditGuard],
+        resolve: {
           resolvedData: ProductResolver
         },
         children: [
@@ -40,8 +43,8 @@ import { AuthGuard} from '../user/auth.guard'
           }
         ]
       }
-      ]
-    }
+      // ]
+    //}
     ])
   ],
   declarations: [
